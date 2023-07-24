@@ -10,6 +10,11 @@ def update_item(name, sell_in, quality, occurrences = 1)
   items
 end
 
+def expect_item_sell_in_and_quality_to_be(item, sell_in, quality)
+  expect(item.sell_in).to eq sell_in
+  expect(item.quality).to eq quality
+end
+
 describe GildedRose do
   describe '#update_quality' do
     it 'does not change the name' do
@@ -19,33 +24,44 @@ describe GildedRose do
 
     it 'decreases sell-in and quality by 1 for normal item' do
       items = update_item('bar', 1, 1)
-      expect(items[0].sell_in).to eq 0
-      expect(items[0].quality).to eq 0
+      expect_item_sell_in_and_quality_to_be(items[0], 0, 0)
     end
 
     it 'decreases quality twice as fast once the item is past its sell-in date' do
       items = update_item('soap', -1, 2)
-      expect(items[0].sell_in).to eq(-2)
-      expect(items[0].quality).to eq 0
+      expect_item_sell_in_and_quality_to_be(items[0], -2, 0)
     end
 
     it 'quality of an item is never negative' do
       items = update_item('soap', 3, 0, 2)
-      expect(items[0].sell_in).to eq 1
-      expect(items[0].quality).to eq 0
+      expect_item_sell_in_and_quality_to_be(items[0], 1, 0)
     end
 
     it 'aged brie increases in quality with time' do
       items = update_item('Aged Brie', 3, 49)
-      expect(items[0].sell_in).to eq 2
-      expect(items[0].quality).to eq 50
+      expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
     end
 
     it 'the quality of an item can never be over 50' do
       items = update_item('Aged Brie', 3, 50)
-      expect(items[0].sell_in).to eq 2
-      expect(items[0].quality).to eq 50
+      expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
     end
 
+    it 'the quality and sell in of Sulfuras never change' do
+      items = update_item('Sulfuras, Hand of Ragnaros', 0, 80)
+      expect_item_sell_in_and_quality_to_be(items[0], 0, 80)
+    end
+
+    it 'the quality of backstage passes increases by one if eleven or more days to concert' do
+      items = update_item('Backstage passes to a TAFKAL80ETC concert', 11, 25)
+      expect_item_sell_in_and_quality_to_be(items[0], 10, 26)
+    end
+
+    it 'the quality of backstage passes increases by two if six to ten days left' do
+      items = update_item('Backstage passes to a TAFKAL80ETC concert', 10, 25)
+      expect_item_sell_in_and_quality_to_be(items[0], 9, 27)
+    end
+
+    # write more tests on concert tickets
   end
 end
