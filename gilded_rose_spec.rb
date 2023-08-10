@@ -42,7 +42,7 @@ describe GildedRose do
       expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
     end
 
-    it 'the quality of an item can never be over 50' do
+    it 'the quality of Aged Brie can never be over 50' do
       items = update_item('Aged Brie', 3, 50)
       expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
     end
@@ -62,6 +62,29 @@ describe GildedRose do
       expect_item_sell_in_and_quality_to_be(items[0], 9, 27)
     end
 
-    # write more tests on concert tickets
+    it 'the quality of backstage passes increases by two if six to ten days left' do
+      items = update_item('Backstage passes to a TAFKAL80ETC concert', 6, 25)
+      expect_item_sell_in_and_quality_to_be(items[0], 5, 27)
+    end
+
+    it 'the quality of backstage passes increases by three if five or less days left' do
+      items = update_item('Backstage passes to a TAFKAL80ETC concert', 5, 25)
+      expect_item_sell_in_and_quality_to_be(items[0], 4, 28)
+    end
+
+    it 'the quality of backstage passes increases by three if a day left' do
+      items = update_item('Backstage passes to a TAFKAL80ETC concert', 1, 25)
+      expect_item_sell_in_and_quality_to_be(items[0], 0, 28)
+    end
+
+    it 'the quality of backstage passes drops to zero after the concert' do
+      items = update_item('Backstage passes to a TAFKAL80ETC concert', 0, 10)
+      expect_item_sell_in_and_quality_to_be(items[0], -1, 0)
+    end
+
+    it 'the quality of backstage passes can never be over 50' do
+      items = update_item('Backstage passes to a TAFKAL80ETC concert', 1, 48)
+      expect_item_sell_in_and_quality_to_be(items[0], 0, 50)
+    end
   end
 end
