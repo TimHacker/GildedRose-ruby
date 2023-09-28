@@ -42,6 +42,11 @@ describe GildedRose do
       expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
     end
 
+    it 'aged brie increases in quality by two when sell in has passed' do
+      items = update_item('Aged Brie', -1, 40)
+      expect_item_sell_in_and_quality_to_be(items[0], -2, 42)
+    end
+
     it 'the quality of Aged Brie can never be over 50' do
       items = update_item('Aged Brie', 3, 50)
       expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
