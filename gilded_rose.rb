@@ -6,11 +6,11 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      if (item.name == "Aged Brie")
+      if (item.name == 'Aged Brie')
         if item.quality < 50
           item.quality += 1
         end
-      elsif (item.name == "Backstage passes to a TAFKAL80ETC concert")
+      elsif (item.name == 'Backstage passes to a TAFKAL80ETC concert')
         if item.quality < 50
           item.quality += 1
           if item.sell_in < 11
@@ -26,23 +26,23 @@ class GildedRose
         end
       else
         if item.quality.positive?
-          if item.name != "Sulfuras, Hand of Ragnaros"
+          if item.name != 'Sulfuras, Hand of Ragnaros'
             item.quality -= 1
           end
         end
       end
-      if item.name != "Sulfuras, Hand of Ragnaros"
+      if item.name != 'Sulfuras, Hand of Ragnaros'
         item.sell_in -= 1
       end
       if item.sell_in.negative?
-        if item.name == "Aged Brie"
+        if item.name == 'Aged Brie'
           if item.quality < 50
             item.quality += 1
           end
-        elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
+        elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
           item.quality = 0
         elsif item.quality.positive?
-          item.quality -= 1 unless item.name == "Sulfuras, Hand of Ragnaros"
+          item.quality -= 1 unless item.name == 'Sulfuras, Hand of Ragnaros'
           # Check other uses of Sulfuras to make sure we have tests covering those scenarios
         end
       end
