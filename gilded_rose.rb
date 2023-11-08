@@ -39,16 +39,11 @@ class GildedRose
           if item.quality < 50
             item.quality += 1
           end
-        else
-          if item.name != "Backstage passes to a TAFKAL80ETC concert"
-            if item.quality.positive?
-              if item.name != "Sulfuras, Hand of Ragnaros"
-                item.quality -= 1
-              end
-            end
-          else
-            item.quality = 0
-          end
+        elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
+          item.quality = 0
+        elsif item.quality.positive?
+          item.quality -= 1 unless item.name == "Sulfuras, Hand of Ragnaros"
+          # Check other uses of Sulfuras to make sure we have tests covering those scenarios
         end
       end
     end

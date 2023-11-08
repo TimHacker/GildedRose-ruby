@@ -52,9 +52,14 @@ describe GildedRose do
       expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
     end
 
-    it 'the quality and sell in of Sulfuras never change' do
+    it 'the quality and sell in of Sulfuras never changes when sell-in is zero' do
       items = update_item('Sulfuras, Hand of Ragnaros', 0, 80)
       expect_item_sell_in_and_quality_to_be(items[0], 0, 80)
+    end
+
+    it 'the quality and sell in of Sulfuras never changes for negative sell-in' do
+      items = update_item('Sulfuras, Hand of Ragnaros', -1, 80)
+      expect_item_sell_in_and_quality_to_be(items[0], -1, 80)
     end
 
     it 'the quality of backstage passes increases by one if eleven or more days to concert' do
