@@ -43,7 +43,6 @@ class GildedRose
           item.quality = 0
         elsif item.quality.positive?
           item.quality -= 1 unless item.name == 'Sulfuras, Hand of Ragnaros'
-          # Check other uses of Sulfuras to make sure we have tests covering those scenarios
         end
       end
     end
