@@ -95,6 +95,7 @@ describe GildedRose do
     it 'the quality of backstage passes can never be over 50' do
       items = update_item('Backstage passes to a TAFKAL80ETC concert', 1, 48)
       expect_item_sell_in_and_quality_to_be(items[0], 0, 50)
+      # to fix: this test fails as it becomes 51 although the increase_by_one method is checking for <50
     end
   end
 end

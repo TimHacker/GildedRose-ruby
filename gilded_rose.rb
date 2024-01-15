@@ -4,26 +4,22 @@ class GildedRose
     @items = items
   end
 
+  def increase_by_one(item, number = 1)
+    item.quality += number if item.quality < 50
+  end
+
   def update_quality()
     @items.each do |item|
       if (item.name == 'Aged Brie')
-        if item.quality < 50
-          item.quality += 1
-        end
+        increase_by_one(item)
       elsif (item.name == 'Backstage passes to a TAFKAL80ETC concert')
-        if item.quality < 50
-          item.quality += 1
-          if item.sell_in < 11
-            if item.quality < 50
-              item.quality += 1
-            end
-          end
           if item.sell_in < 6
-            if item.quality < 50
-              item.quality += 1
-            end
+            increase_by_one(item, 3)
+          elsif item.sell_in < 11
+            increase_by_one(item, 2)
+          else
+            increase_by_one(item)
           end
-        end
       else
         if item.quality.positive?
           if item.name != 'Sulfuras, Hand of Ragnaros'
@@ -36,9 +32,7 @@ class GildedRose
       end
       if item.sell_in.negative?
         if item.name == 'Aged Brie'
-          if item.quality < 50
-            item.quality += 1
-          end
+          increase_by_one(item)
         elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
           item.quality = 0
         elsif item.quality.positive?
