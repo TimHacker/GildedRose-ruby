@@ -43,8 +43,8 @@ describe GildedRose do
     end
 
     it 'aged brie increases in quality by two when sell in has passed' do
-      items = update_item(GildedRose::AGED_BRIE, -1, 40)
-      expect_item_sell_in_and_quality_to_be(items[0], -2, 42)
+      items = update_item(GildedRose::AGED_BRIE, 0, 40)
+      expect_item_sell_in_and_quality_to_be(items[0], -1, 42)
     end
 
     it 'the quality of Aged Brie can never be over 50' do

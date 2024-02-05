@@ -18,7 +18,14 @@ class GildedRose
     @items.each do |item|
       if (item.name == AGED_BRIE)
         increase_quality(item)
+        # if item.sell_in.negative?
+        #   increase_quality(item)
+        # end
       elsif (item.name == BACKSTAGE_PASSES)
+          # if item.sell_in.negative?
+          item.quality = 0
+
+          # end
           if item.sell_in < 6
             increase_quality(item, 3)
           elsif item.sell_in < 11
@@ -36,14 +43,12 @@ class GildedRose
       if item.name != SULFURAS
         item.sell_in -= 1
       end
-      if item.sell_in.negative?
-        if item.name == AGED_BRIE
-          increase_quality(item)
-        elsif item.name == BACKSTAGE_PASSES
-          item.quality = 0
-        elsif item.quality.positive?
-          item.quality -= 1 unless item.name == SULFURAS
-        end
+      if item.name == AGED_BRIE && item.sell_in.negative?
+        increase_quality(item)
+      elsif item.name == BACKSTAGE_PASSES && item.sell_in.negative?
+        item.quality = 0
+      elsif item.sell_in.negative? && item.quality.positive?
+        item.quality -= 1 unless item.name == SULFURAS || item.name == AGED_BRIE
       end
     end
   end
