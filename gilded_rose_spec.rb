@@ -42,6 +42,11 @@ describe GildedRose do
       expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
     end
 
+    it 'aged brie increases in quality when sell in has not passed' do
+      items = update_item(GildedRose::AGED_BRIE, 1, 25)
+      expect_item_sell_in_and_quality_to_be(items[0], 0, 26)
+    end
+
     it 'aged brie increases in quality by two when sell in has passed' do
       items = update_item(GildedRose::AGED_BRIE, 0, 40)
       expect_item_sell_in_and_quality_to_be(items[0], -1, 42)
@@ -50,6 +55,11 @@ describe GildedRose do
     it 'the quality of Aged Brie can never be over 50' do
       items = update_item(GildedRose::AGED_BRIE, 3, 50)
       expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
+    end
+
+    it 'the quality of Aged Brie increases even if the sell-in is negative' do
+      items = update_item(GildedRose::AGED_BRIE, -1, 20)
+      expect_item_sell_in_and_quality_to_be(items[0], -2, 22)
     end
 
     it 'the quality and sell in of Sulfuras never changes when sell-in is zero' do
