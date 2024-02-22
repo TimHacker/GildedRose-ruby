@@ -47,6 +47,8 @@ class GildedRose
       if item.sell_in.negative? && item.quality.positive?
         item.quality -= 1 unless item.name == SULFURAS || item.name == AGED_BRIE
       end
+      # We want to group all the logic for a single item together
+      # it should not be scattered around the file but in one place for each item
     end
   end
 end
