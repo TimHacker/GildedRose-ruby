@@ -21,6 +21,7 @@ class GildedRose
         if item.sell_in <= 0
           increase_quality(item)
         end
+        item.sell_in -= 1
 
       elsif (item.name == BACKSTAGE_PASSES)
 
@@ -33,15 +34,11 @@ class GildedRose
         else
           increase_quality(item)
         end
+        item.sell_in -= 1
+      elsif (item.name == SULFURAS)
 
       else
-        if item.quality.positive?
-          if item.name != SULFURAS
-            item.quality -= 1
-          end
-        end
-      end
-      if item.name != SULFURAS
+        item.quality -= 1 if item.quality.positive?
         item.sell_in -= 1
       end
       if item.sell_in.negative? && item.quality.positive?
