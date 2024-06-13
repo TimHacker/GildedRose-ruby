@@ -16,15 +16,13 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      if (item.name == AGED_BRIE)
+      case item.name
+      when AGED_BRIE
         increase_quality(item)
-        if item.sell_in <= 0
-          increase_quality(item)
-        end
+        increase_quality(item) if item.sell_in <= 0
         item.sell_in -= 1
 
-      elsif (item.name == BACKSTAGE_PASSES)
-
+      when BACKSTAGE_PASSES
         if item.sell_in <= 0
           item.quality = 0
         elsif item.sell_in < 6
@@ -35,17 +33,14 @@ class GildedRose
           increase_quality(item)
         end
         item.sell_in -= 1
-      elsif (item.name == SULFURAS)
-
+        item.quality -= 1 if item.sell_in.negative? && item.quality.positive?
+      when SULFURAS
+        # do nothing as sulfuras is a special item
       else
         item.quality -= 1 if item.quality.positive?
         item.sell_in -= 1
+        item.quality -= 1 if item.sell_in.negative? && item.quality.positive?
       end
-      if item.sell_in.negative? && item.quality.positive?
-        item.quality -= 1 unless item.name == SULFURAS || item.name == AGED_BRIE
-      end
-      # We want to group all the logic for a single item together
-      # it should not be scattered around the file but in one place for each item
     end
   end
 end
