@@ -1,3 +1,6 @@
+require_relative 'items/backstage_pass'
+require_relative 'items/aged_brie'
+
 class GildedRose
 
   def initialize(items)
@@ -18,31 +21,28 @@ class GildedRose
     @items.each do |item|
       case item.name
       when AGED_BRIE
-        increase_quality(item)
-        increase_quality(item) if item.sell_in <= 0
-        item.sell_in -= 1
-
+        AgedBrie.new.update_item(item)
       when BACKSTAGE_PASSES
-        if item.sell_in <= 0
-          item.quality = 0
-        elsif item.sell_in < 6
-          increase_quality(item, 3)
-        elsif item.sell_in < 11
-          increase_quality(item, 2)
-        else
-          increase_quality(item)
-        end
-        item.sell_in -= 1
-        item.quality -= 1 if item.sell_in.negative? && item.quality.positive?
+        BackstagePass.new.update_item(item)
       when SULFURAS
-        # do nothing as sulfuras is a special item
+        sulfuras(item)
       else
-        item.quality -= 1 if item.quality.positive?
-        item.sell_in -= 1
-        item.quality -= 1 if item.sell_in.negative? && item.quality.positive?
+        normal_item(item)
       end
     end
   end
+
+  private
+  def sulfuras(item)
+    # do nothing as sulfuras is a special item
+  end
+
+  def normal_item(item)
+    item.quality -= 1 if item.quality.positive?
+    item.sell_in -= 1
+    item.quality -= 1 if item.sell_in.negative? && item.quality.positive?
+  end
+
 end
 
 class Item
