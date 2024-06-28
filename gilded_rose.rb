@@ -1,5 +1,8 @@
 require_relative 'items/backstage_pass'
 require_relative 'items/aged_brie'
+require_relative 'items/normal_item'
+require_relative 'items/sulfuras'
+require_relative 'items/item'
 
 class GildedRose
 
@@ -25,36 +28,11 @@ class GildedRose
       when BACKSTAGE_PASSES
         BackstagePass.new.update_item(item)
       when SULFURAS
-        sulfuras(item)
+        Sulfuras.new.update_item
       else
-        normal_item(item)
+        NormalItem.new.update_item(item)
       end
     end
   end
-
-  private
-  def sulfuras(item)
-    # do nothing as sulfuras is a special item
-  end
-
-  def normal_item(item)
-    item.quality -= 1 if item.quality.positive?
-    item.sell_in -= 1
-    item.quality -= 1 if item.sell_in.negative? && item.quality.positive?
-  end
-
 end
 
-class Item
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
-  def to_s()
-    "#{@name}, #{@sell_in}, #{@quality}"
-  end
-end
