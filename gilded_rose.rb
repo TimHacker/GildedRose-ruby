@@ -20,19 +20,27 @@ class GildedRose
     end
   end
 
-  def update_quality()
-    @items.each do |item|
-      case item.name
-      when AGED_BRIE
-        AgedBrie.new.update_item(item)
-      when BACKSTAGE_PASSES
-        BackstagePass.new.update_item(item)
-      when SULFURAS
-        Sulfuras.new.update_item
-      else
-        NormalItem.new.update_item(item)
-      end
+  def update_quality
+
+    @items.each do |current_item|
+      item = item_factory(current_item)
+      item.update_item(current_item)
+      # how to merge the item & current_item
+    end
+  end
+
+  private
+
+  def item_factory(current_item)
+    case current_item.name
+    when AGED_BRIE
+      AgedBrie.new
+    when BACKSTAGE_PASSES
+      BackstagePass.new
+    when SULFURAS
+      Sulfuras.new
+    else
+      NormalItem.new
     end
   end
 end
-
