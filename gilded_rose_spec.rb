@@ -38,72 +38,72 @@ describe GildedRose do
     end
 
     it 'aged brie increases in quality with time' do
-      items = update_item(GildedRose::AGED_BRIE, 3, 49)
+      items = update_item(Item::AGED_BRIE, 3, 49)
       expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
     end
 
     it 'aged brie increases in quality when sell in has not passed' do
-      items = update_item(GildedRose::AGED_BRIE, 1, 25)
+      items = update_item(Item::AGED_BRIE, 1, 25)
       expect_item_sell_in_and_quality_to_be(items[0], 0, 26)
     end
 
     it 'aged brie increases in quality by two when sell in has passed' do
-      items = update_item(GildedRose::AGED_BRIE, 0, 40)
+      items = update_item(Item::AGED_BRIE, 0, 40)
       expect_item_sell_in_and_quality_to_be(items[0], -1, 42)
     end
 
     it 'the quality of Aged Brie can never be over 50' do
-      items = update_item(GildedRose::AGED_BRIE, 3, 50)
+      items = update_item(Item::AGED_BRIE, 3, 50)
       expect_item_sell_in_and_quality_to_be(items[0], 2, 50)
     end
 
     it 'the quality of Aged Brie increases even if the sell-in is negative' do
-      items = update_item(GildedRose::AGED_BRIE, -1, 20)
+      items = update_item(Item::AGED_BRIE, -1, 20)
       expect_item_sell_in_and_quality_to_be(items[0], -2, 22)
     end
 
     it 'the quality and sell in of Sulfuras never changes when sell-in is zero' do
-      items = update_item(GildedRose::SULFURAS, 0, 80)
+      items = update_item(Item::SULFURAS, 0, 80)
       expect_item_sell_in_and_quality_to_be(items[0], 0, 80)
     end
 
     it 'the quality and sell in of Sulfuras never changes for negative sell-in' do
-      items = update_item(GildedRose::SULFURAS, -1, 80)
+      items = update_item(Item::SULFURAS, -1, 80)
       expect_item_sell_in_and_quality_to_be(items[0], -1, 80)
     end
 
     it 'the quality of backstage passes increases by one if eleven or more days to concert' do
-      items = update_item(GildedRose::BACKSTAGE_PASSES, 11, 25)
+      items = update_item(Item::BACKSTAGE_PASSES, 11, 25)
       expect_item_sell_in_and_quality_to_be(items[0], 10, 26)
     end
 
     it 'the quality of backstage passes increases by two if six to ten days left' do
-      items = update_item(GildedRose::BACKSTAGE_PASSES, 10, 25)
+      items = update_item(Item::BACKSTAGE_PASSES, 10, 25)
       expect_item_sell_in_and_quality_to_be(items[0], 9, 27)
     end
 
     it 'the quality of backstage passes increases by two if six to ten days left' do
-      items = update_item(GildedRose::BACKSTAGE_PASSES, 6, 25)
+      items = update_item(Item::BACKSTAGE_PASSES, 6, 25)
       expect_item_sell_in_and_quality_to_be(items[0], 5, 27)
     end
 
     it 'the quality of backstage passes increases by three if five or less days left' do
-      items = update_item(GildedRose::BACKSTAGE_PASSES, 5, 25)
+      items = update_item(Item::BACKSTAGE_PASSES, 5, 25)
       expect_item_sell_in_and_quality_to_be(items[0], 4, 28)
     end
 
     it 'the quality of backstage passes increases by three if a day left' do
-      items = update_item(GildedRose::BACKSTAGE_PASSES, 1, 25)
+      items = update_item(Item::BACKSTAGE_PASSES, 1, 25)
       expect_item_sell_in_and_quality_to_be(items[0], 0, 28)
     end
 
     it 'the quality of backstage passes drops to zero after the concert' do
-      items = update_item(GildedRose::BACKSTAGE_PASSES, 0, 10)
+      items = update_item(Item::BACKSTAGE_PASSES, 0, 10)
       expect_item_sell_in_and_quality_to_be(items[0], -1, 0)
     end
 
     it 'the quality of backstage passes can never be over 50' do
-      items = update_item(GildedRose::BACKSTAGE_PASSES, 1, 48)
+      items = update_item(Item::BACKSTAGE_PASSES, 1, 48)
       expect_item_sell_in_and_quality_to_be(items[0], 0, 50)
     end
   end

@@ -10,10 +10,6 @@ class GildedRose
     @items = items
   end
 
-  AGED_BRIE = 'Aged Brie'
-  BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert'
-  SULFURAS = 'Sulfuras, Hand of Ragnaros'
-
   def increase_quality(item, number = 1)
     number.times do
       item.quality += 1 if item.quality < 50
@@ -23,24 +19,10 @@ class GildedRose
   def update_quality
 
     @items.each do |current_item|
-      item = item_factory(current_item)
+      item = Item.item_factory(current_item)
       item.update_item(current_item)
       # how to merge the item & current_item
     end
   end
 
-  private
-
-  def item_factory(current_item)
-    case current_item.name
-    when AGED_BRIE
-      AgedBrie.new
-    when BACKSTAGE_PASSES
-      BackstagePass.new
-    when SULFURAS
-      Sulfuras.new
-    else
-      NormalItem.new
-    end
-  end
 end
