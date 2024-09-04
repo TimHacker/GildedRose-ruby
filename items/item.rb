@@ -16,6 +16,7 @@ class Item
     case current_item.name
     when AGED_BRIE
       AgedBrie.new
+      # zero arguments but requires 3 so tests fail
     when BACKSTAGE_PASSES
       BackstagePass.new
     when SULFURAS

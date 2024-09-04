@@ -1,17 +1,17 @@
 # frozen_string_literal: true
-
-class AgedBrie
-  def update_item(item)
-    increase_quality(item)
-    increase_quality(item) if item.sell_in <= 0
-    item.sell_in -= 1
+require_relative './item.rb'
+class AgedBrie < Item
+  def update_item
+    increase_quality
+    increase_quality if @sell_in <= 0
+    @sell_in -= 1
   end
 
   private
 
-  def increase_quality(item, number = 1)
+  def increase_quality(number = 1)
     number.times do
-      item.quality += 1 if item.quality < 50
+      @quality += 1 if @quality < 50
     end
   end
 end
