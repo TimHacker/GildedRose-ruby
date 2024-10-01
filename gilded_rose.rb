@@ -20,7 +20,11 @@ class GildedRose
 
     @items.each do |current_item|
       item = Item.item_factory(current_item)
-      item.update_item(current_item)
+      item.update_item
+      current_item.name = item.name
+      current_item.quality = item.quality
+      current_item.sell_in = item.sell_in
+      # rename to update by itself
       # how to merge the item & current_item
     end
   end

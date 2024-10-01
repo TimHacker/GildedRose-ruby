@@ -15,14 +15,13 @@ class Item
   def self.item_factory(current_item)
     case current_item.name
     when AGED_BRIE
-      AgedBrie.new
-      # zero arguments but requires 3 so tests fail
+      AgedBrie.new(current_item.name, current_item.sell_in, current_item.quality)
     when BACKSTAGE_PASSES
-      BackstagePass.new
+      BackstagePass.new(current_item.name, current_item.sell_in, current_item.quality)
     when SULFURAS
-      Sulfuras.new
+      Sulfuras.new(current_item.name, current_item.sell_in, current_item.quality)
     else
-      NormalItem.new
+      NormalItem.new(current_item.name, current_item.sell_in, current_item.quality)
     end
   end
 

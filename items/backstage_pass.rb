@@ -1,26 +1,27 @@
 # frozen_string_literal: true
+require_relative './item.rb'
 
-class BackstagePass
+class BackstagePass < Item
 
-  def update_item(item)
-    if item.sell_in <= 0
-      item.quality = 0
-    elsif item.sell_in < 6
-      increase_quality(item, 3)
-    elsif item.sell_in < 11
-      increase_quality(item, 2)
+  def update_item
+    if @sell_in <= 0
+      @quality = 0
+    elsif @sell_in < 6
+      increase_quality(3)
+    elsif @sell_in < 11
+      increase_quality(2)
     else
-      increase_quality(item)
+      increase_quality
     end
-    item.sell_in -= 1
-    item.quality -= 1 if item.sell_in.negative? && item.quality.positive?
+    @sell_in -= 1
+    @quality -= 1 if @sell_in.negative? && @quality.positive?
   end
 
   private
 
-  def increase_quality(item, number = 1)
+  def increase_quality(number = 1)
     number.times do
-      item.quality += 1 if item.quality < 50
+      @quality += 1 if @quality < 50
     end
   end
 

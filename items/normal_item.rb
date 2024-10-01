@@ -1,17 +1,18 @@
 # frozen_string_literal: true
+require_relative './item.rb'
 
-class NormalItem
-  def update_item(item)
-    item.quality -= 1 if item.quality.positive?
-    item.sell_in -= 1
-    item.quality -= 1 if item.sell_in.negative? && item.quality.positive?
+class NormalItem < Item
+  def update_item
+    @quality -= 1 if @quality.positive?
+    @sell_in -= 1
+    @quality -= 1 if @sell_in.negative? && @quality.positive?
   end
 
   private
 
-  def increase_quality(item, number = 1)
+  def increase_quality(number = 1)
     number.times do
-      item.quality += 1 if item.quality < 50
+      @quality += 1 if @quality < 50
     end
   end
 end
