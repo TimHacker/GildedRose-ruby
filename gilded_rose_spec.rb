@@ -106,5 +106,10 @@ describe GildedRose do
       items = update_item(Item::BACKSTAGE_PASSES, 1, 48)
       expect_item_sell_in_and_quality_to_be(items[0], 0, 50)
     end
+
+    it 'conjured items decrease quality twice as fast as normal items' do
+      items = update_item(Item::CONJURED, 2, 2)
+      expect_item_sell_in_and_quality_to_be(items[0], 1, 0)
+    end
   end
 end
