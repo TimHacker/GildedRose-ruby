@@ -108,8 +108,13 @@ describe GildedRose do
     end
 
     it 'conjured items decrease quality twice as fast as normal items' do
-      items = update_item(Item::CONJURED, 2, 2)
-      expect_item_sell_in_and_quality_to_be(items[0], 1, 0)
+      items = update_item(Item::CONJURED, 2, 5)
+      expect_item_sell_in_and_quality_to_be(items[0], 1, 3)
+    end
+
+    it 'conjured items decrease ' do
+      items = update_item(Item::CONJURED, -1, 5)
+      expect_item_sell_in_and_quality_to_be(items[0], -2, 1)
     end
   end
 end
